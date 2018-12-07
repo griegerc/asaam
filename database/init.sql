@@ -1,0 +1,9 @@
+SET FOREIGN_KEY_CHECKS = 0;
+
+CREATE TABLE `config` (
+    `key` CHAR(32) NOT NULL,
+    `value` CHAR(32) NOT NULL,
+        PRIMARY KEY (`key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+SET FOREIGN_KEY_CHECKS = 1;

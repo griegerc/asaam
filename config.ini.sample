@@ -1,0 +1,54 @@
+; =================================================
+; This is a sample configuration file. For real
+; usage copy this file to "config.ini" and adapt
+; all relevant values.
+; =================================================
+
+;
+; World environment
+;    supported: "production" (default), "development"
+;
+ENVIRONMENT = "development"
+
+;
+; Authentication secret needed for the requests
+;
+AUTH_SECRET      = "k9$wE1S4k§l-R55ZTd"
+AUTH_ENABLED     = 1
+AUTH_TIME_OFFSET = 10  ; in seconds
+
+;
+; Allowed clients for usage of ASAAM
+;    Specify "*" for no restrictions or a list of ip addresses who have access,
+;    e.g. "111.222.333.444, 222.333.444.555, 333.444.555.666"
+;
+ALLOWED_CLIENTS  = "*"
+
+;
+; World timezone (see: http://www.php.net/manual/en/timezones.php)
+;    default: "UTC"
+;
+TIMEZONE = "UTC"
+
+;
+; Default MVC behaviour
+;
+DEFAULT_CONTROLLER      = "api"
+DEFAULT_AUTH_CONTROLLER = "undefined"
+DEFAULT_DB_STATEMENTS   = "App_DatabaseStmt"
+
+;
+; Logging levels:
+;    supported: "DEBUG" (default) | "INFO" | "WARN" | "ERROR" | "FATAL"
+;
+LOG_ENABLED     = 1
+LOG_LEVEL       = "DEBUG"
+LOG_FILE        = "/var/log/asaam.log"
+
+;
+; MySQL database settings
+;
+MYSQL_HOST     = "127.0.0.1"
+MYSQL_USERNAME = "asaam"
+MYSQL_PASSWORD = "secret"
+MYSQL_DATABASE = "asaam"
