@@ -8,7 +8,7 @@ class Controllers_Api extends Controllers_Abstract
      */
     public function indexAction()
     {
-		$this->output = 'There is no achievement, only ASAAM!';
+        $this->output = 'There is no achievement, only ASAAM!';
     }
 
     /**
@@ -32,36 +32,36 @@ class Controllers_Api extends Controllers_Abstract
         $gameId = (int)$this->_getParam('gameId', 0);
 
         if ($gameId <= 0) {
-			$this->_setError('Invalid gameId', App_Error::INVALID_GAME_ID);
-			return;
+            $this->_setError('Invalid gameId', App_Error::INVALID_GAME_ID);
+            return;
         }
         if (!App_AchievementType::isValidIdentifier($achievementTypeIdentifier)) {
-			$this->_setError('Invalid achievement type identifier', App_Error::INVALID_TYPE_IDENTIFIER);
-			return;
+            $this->_setError('Invalid achievement type identifier', App_Error::INVALID_TYPE_IDENTIFIER);
+            return;
         }
 
-		$achievementType = App_AchievementType::get($achievementTypeIdentifier, $gameId);
+        $achievementType = App_AchievementType::get($achievementTypeIdentifier, $gameId);
         if ($achievementType instanceof App_AchievementType) {
-			$this->_setError('Achievement type already present', App_Error::ACHIEVEMENT_TYPE_EXISTS);
-			return;
+            $this->_setError('Achievement type already present', App_Error::ACHIEVEMENT_TYPE_EXISTS);
+            return;
         }
 
         if (!isset($achievementTypeData['levels']) || !is_array($achievementTypeData['levels']) || count($achievementTypeData['levels']) == 0) {
-			$this->_setError('Achievement level missing', App_Error::ACHIEVEMENT_LEVEL_MISSING);
-			return;
-		}
+            $this->_setError('Achievement level missing', App_Error::ACHIEVEMENT_LEVEL_MISSING);
+            return;
+        }
 
-		if ((int)$achievementTypeData['isAccretive'] == 0 && count($achievementTypeData['levels']) != 1) {
-			$this->_setError('Non-accretive achievements can only have one level', App_Error::ACHIEVEMENT_LEVEL_MISMATCH);
-			return;
-		}
+        if ((int)$achievementTypeData['isAccretive'] == 0 && count($achievementTypeData['levels']) != 1) {
+            $this->_setError('Non-accretive achievements can only have one level', App_Error::ACHIEVEMENT_LEVEL_MISMATCH);
+            return;
+        }
 
         try {
-			App_AchievementType::add($achievementTypeIdentifier, $achievementTypeData, $gameId);
-			$this->output['success'] = true;
-		} catch (Exception $ex) {
-			$this->_setError($ex->getMessage(), $ex->getCode());
-		}
+            App_AchievementType::add($achievementTypeIdentifier, $achievementTypeData, $gameId);
+            $this->output['success'] = true;
+        } catch (Exception $ex) {
+            $this->_setError($ex->getMessage(), $ex->getCode());
+        }
     }
 
     /**
@@ -69,19 +69,19 @@ class Controllers_Api extends Controllers_Abstract
      */
     public function addDataAction()
     {
-		$heroId = (int)$this->_getParam('heroId', 0);
-		$userId = (int)$this->_getParam('userId', 0);
-		$gameId = (int)$this->_getParam('gameId', 0);
-		$value = (int)$this->_getParam('value', 0);
-		$achievementTypeIdentifier = $this->_getParam('achievementTypeIdentifier', 0);
+        $heroId = (int)$this->_getParam('heroId', 0);
+        $userId = (int)$this->_getParam('userId', 0);
+        $gameId = (int)$this->_getParam('gameId', 0);
+        $value = (int)$this->_getParam('value', 0);
+        $achievementTypeIdentifier = $this->_getParam('achievementTypeIdentifier', 0);
 
-		try {
-			$hasAchieved = App_Achievement::addAchievementData($achievementTypeIdentifier, $heroId, $userId, $gameId, $value);
-			$this->output['success'] = true;
-			$this->output['hasAchieved'] = $hasAchieved;
-		} catch (Exception $ex) {
-			$this->_setError($ex->getMessage(), $ex->getCode());
-		}
+        try {
+            $hasAchieved = App_Achievement::addAchievementData($achievementTypeIdentifier, $heroId, $userId, $gameId, $value);
+            $this->output['success'] = true;
+            $this->output['hasAchieved'] = $hasAchieved;
+        } catch (Exception $ex) {
+            $this->_setError($ex->getMessage(), $ex->getCode());
+        }
     }
 
     /**
@@ -89,10 +89,10 @@ class Controllers_Api extends Controllers_Abstract
      */
     public function getHeroAchievementsAction()
     {
-		$heroId = (int)$this->_getParam('heroId', 0);
-		$userId = (int)$this->_getParam('userId', 0);
-		$gameId = (int)$this->_getParam('gameId', 0);
-		$this->output = App_Achievement::bulkGetByHero($heroId, $userId, $gameId);
+        $heroId = (int)$this->_getParam('heroId', 0);
+        $userId = (int)$this->_getParam('userId', 0);
+        $gameId = (int)$this->_getParam('gameId', 0);
+        $this->output = App_Achievement::bulkGetByHero($heroId, $userId, $gameId);
     }
 
     /**
@@ -100,9 +100,9 @@ class Controllers_Api extends Controllers_Abstract
      */
     public function getAchievementsAction()
     {
-		$userId = (int)$this->_getParam('userId', 0);
-		$gameId = (int)$this->_getParam('gameId', 0);
-		$this->output = App_Achievement::bulkGet($userId, $gameId);
+        $userId = (int)$this->_getParam('userId', 0);
+        $gameId = (int)$this->_getParam('gameId', 0);
+        $this->output = App_Achievement::bulkGet($userId, $gameId);
     }
 
     /**
@@ -127,13 +127,13 @@ class Controllers_Api extends Controllers_Abstract
         }
 
         try {
-			$achievement->fetchGlory();
-		} catch (Exception $ex) {
-        	$this->_setError($ex->getMessage(), $ex->getCode());
-			return;
-		}
+            $achievement->fetchGlory();
+        } catch (Exception $ex) {
+            $this->_setError($ex->getMessage(), $ex->getCode());
+            return;
+        }
 
-		$this->output['success'] = true;
+        $this->output['success'] = true;
     }
 
     /**

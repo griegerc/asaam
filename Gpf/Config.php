@@ -53,8 +53,8 @@ class Gpf_Config
                 $now = (int)$dbRes['ts'];
                 $config->_settings['NOW'] = $now;
             } else {
-				Gpf_Logger::error('Config key "'.$key.'" not found', 'CONFIG');
-				return NULL;
+                Gpf_Logger::error('Config key "'.$key.'" not found', 'CONFIG');
+                return NULL;
             }
         }
         return $config->_settings[$key];

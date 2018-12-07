@@ -2,7 +2,7 @@
 
 # Define a timestamp function
 timestamp() {
-	date +%s
+    date +%s
 }
 
 BACKUP_FILE=/home/[USERNAME]/asaam/backup_$(timestamp).sql

@@ -7,85 +7,85 @@ class App_DatabaseStmt
         'getAllAchievementTypes' =>
             'SELECT * FROM `achievementTypes` WHERE `gameId` = ?;',
 
-		'getAchievementTypeData' =>
-			'SELECT * FROM `achievementTypes` WHERE `achievementTypeIdentifier` = ? AND `gameId` = ?;',
+        'getAchievementTypeData' =>
+            'SELECT * FROM `achievementTypes` WHERE `achievementTypeIdentifier` = ? AND `gameId` = ?;',
 
-		'getAchievementTypeById' =>
-			'SELECT * FROM `achievementTypes` WHERE `achievementTypeId` = ?;',
+        'getAchievementTypeById' =>
+            'SELECT * FROM `achievementTypes` WHERE `achievementTypeId` = ?;',
 
-		'addAchievementType' =>
-			'INSERT INTO `achievementTypes` 
-			(`achievementTypeIdentifier`, `gameId`, `category`, `isAccretive`, `isVisible`, `creationTime`)
-			VALUES(?, ?, ?, ?, ?, ?);',
-
-
-
-		'getAchievementLevels' =>
-			'SELECT * FROM `achievementTypeLevels` WHERE `achievementTypeId` = ?;',
-
-		'addAchievementTypeLevel' =>
-			'INSERT INTO `achievementTypeLevels` 
-			(`achievementTypeId`, `level`, `value`, `gloryReward`)
-			VALUES (?, ?, ?, ?);',
+        'addAchievementType' =>
+            'INSERT INTO `achievementTypes` 
+            (`achievementTypeIdentifier`, `gameId`, `category`, `isAccretive`, `isVisible`, `creationTime`)
+            VALUES(?, ?, ?, ?, ?, ?);',
 
 
 
-		'getGlory' =>
-			'SELECT * FROM `glory` WHERE `gameId` = ? AND `userId` = ? LIMIT 1;',
+        'getAchievementLevels' =>
+            'SELECT * FROM `achievementTypeLevels` WHERE `achievementTypeId` = ?;',
 
-		'updateGlory' =>
-			'UPDATE `glory` SET `gloryAmount` = `gloryAmount` + ? WHERE `userId` = ? AND `gameId` = ?;',
-
-		'addGlory' =>
-			'INSERT INTO `glory` (`gloryAmount`, `userId`, `gameId`) VALUES (?, ?, ?);',
-
-
-
-		'insertGloryLog' =>
-			'INSERT INTO `gloryLog`
-			(`logTime`, `achievementId`, `gloryOffset`)
-			VALUES (?, ?, ?);',
+        'addAchievementTypeLevel' =>
+            'INSERT INTO `achievementTypeLevels` 
+            (`achievementTypeId`, `level`, `value`, `gloryReward`)
+            VALUES (?, ?, ?, ?);',
 
 
 
-		'addAchievement' =>
-			'INSERT INTO `achievements` 
-			(`achievementTypeId`, `userId`, `gameId`, `level`, `value`) 
-			VALUES(?, ?, ?, ?, ?);',
+        'getGlory' =>
+            'SELECT * FROM `glory` WHERE `gameId` = ? AND `userId` = ? LIMIT 1;',
 
-		'addHeroAchievement' =>
-			'INSERT INTO `achievements` 
-			(`achievementTypeId`, `heroId`, `userId`, `gameId`, `level`, `value`) 
-			VALUES(?, ?, ?, ?, ?, ?);',
+        'updateGlory' =>
+            'UPDATE `glory` SET `gloryAmount` = `gloryAmount` + ? WHERE `userId` = ? AND `gameId` = ?;',
 
-		'getAchievementById' =>
+        'addGlory' =>
+            'INSERT INTO `glory` (`gloryAmount`, `userId`, `gameId`) VALUES (?, ?, ?);',
+
+
+
+        'insertGloryLog' =>
+            'INSERT INTO `gloryLog`
+            (`logTime`, `achievementId`, `gloryOffset`)
+            VALUES (?, ?, ?);',
+
+
+
+        'addAchievement' =>
+            'INSERT INTO `achievements` 
+            (`achievementTypeId`, `userId`, `gameId`, `level`, `value`) 
+            VALUES(?, ?, ?, ?, ?);',
+
+        'addHeroAchievement' =>
+            'INSERT INTO `achievements` 
+            (`achievementTypeId`, `heroId`, `userId`, `gameId`, `level`, `value`) 
+            VALUES(?, ?, ?, ?, ?, ?);',
+
+        'getAchievementById' =>
             'SELECT * FROM `achievements` WHERE `achievementId` = ?;',
 
-		'getAchievements' =>
-			'SELECT * FROM `achievements` WHERE `heroId` IS NULL AND `userId` = ? AND `gameId` = ?;',
+        'getAchievements' =>
+            'SELECT * FROM `achievements` WHERE `heroId` IS NULL AND `userId` = ? AND `gameId` = ?;',
 
-		'getAchievementsByHero' =>
-			'SELECT * FROM `achievements` WHERE `heroId` = ? AND `userId` = ? AND `gameId` = ?;',
+        'getAchievementsByHero' =>
+            'SELECT * FROM `achievements` WHERE `heroId` = ? AND `userId` = ? AND `gameId` = ?;',
 
-		'getMaxLevelByTypeAndHero' =>
+        'getMaxLevelByTypeAndHero' =>
             'SELECT * FROM `achievements` 
             WHERE `achievementTypeId` = ? AND `heroId` = ? AND `userId` = ? AND `gameId` = ? 
             ORDER BY `level` DESC
             LIMIT 1;',
 
-		'getMaxLevelByType' =>
+        'getMaxLevelByType' =>
             'SELECT * FROM `achievements` 
             WHERE `heroId` IS NULL AND `achievementTypeId` = ? AND `userId` = ? AND `gameId` = ? 
             ORDER BY `level` DESC
             LIMIT 1;',
 
-		'setGloryFetched' =>
-			'UPDATE `achievements` SET `gloryFetched` = ? WHERE `achievementId` = ?;',
+        'setGloryFetched' =>
+            'UPDATE `achievements` SET `gloryFetched` = ? WHERE `achievementId` = ?;',
 
-		'achievementUpdateValue' =>
-			'UPDATE `achievements` SET `value` = `value` + ? WHERE `achievementId` = ?;',
+        'achievementUpdateValue' =>
+            'UPDATE `achievements` SET `value` = `value` + ? WHERE `achievementId` = ?;',
 
-		'achievementSetAchieved' =>
-			'UPDATE `achievements` SET `isAchieved` = 1, `achievedTime` = ? WHERE `achievementId` = ?;'
-	);
+        'achievementSetAchieved' =>
+            'UPDATE `achievements` SET `isAchieved` = 1, `achievedTime` = ? WHERE `achievementId` = ?;'
+    );
 }

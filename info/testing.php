@@ -5,34 +5,34 @@ define('AUTH_SECRET',  'soSecret');
 
 /*
 $cases = array(
-	array(
-		'action' => 'addAchievementType/',
-		'params' => array(
-			'achievementTypeIdentifier', 	'FIGHTER',
-			'gameId', 						'12',
-			'achievementTypeData', 			'{"category":0,"isAccretive":0,"isVisible":1,"levels":[{"level":1,"value":10,"glory":3}]}')
-	),
-	array(
-		'action' => 'addAchievementType/',
-		'params' => array(
-			'achievementTypeIdentifier', 	'DEFENDER',
-			'gameId', 						'12',
-			'achievementTypeData', 			'{"category":1,"isAccretive":1,"isVisible":1,"levels":[{"level":1,"value":10,"glory":3},{"level":2,"value":20,"glory":6},{"level":3,"value":30,"glory":9}]}')
-	),
-	array(
-		'action' => 'addAchievementType/',
-		'params' => array(
-			'achievementTypeIdentifier', 	'TANK',
-			'gameId', 						'12',
-			'achievementTypeData', 			'{"category":1,"isAccretive":1,"isVisible":1,"levels":[{"level":1,"value":100,"glory":2},{"level":2,"value":250,"glory":5}]}')
-	),
-	array(
-		'action' => 'addAchievementType/',
-		'params' => array(
-			'achievementTypeIdentifier', 	'FIGHTER',
-			'gameId', 						'15',
-			'achievementTypeData', 			'{"category":0,"isAccretive":0,"isVisible":1,"levels":[{"level":1,"value":10,"glory":3}]}')
-	),
+    array(
+        'action' => 'addAchievementType/',
+        'params' => array(
+            'achievementTypeIdentifier',     'FIGHTER',
+            'gameId',                        '12',
+            'achievementTypeData',           '{"category":0,"isAccretive":0,"isVisible":1,"levels":[{"level":1,"value":10,"glory":3}]}')
+    ),
+    array(
+        'action' => 'addAchievementType/',
+        'params' => array(
+            'achievementTypeIdentifier',     'DEFENDER',
+            'gameId',                        '12',
+            'achievementTypeData',           '{"category":1,"isAccretive":1,"isVisible":1,"levels":[{"level":1,"value":10,"glory":3},{"level":2,"value":20,"glory":6},{"level":3,"value":30,"glory":9}]}')
+    ),
+    array(
+        'action' => 'addAchievementType/',
+        'params' => array(
+            'achievementTypeIdentifier',     'TANK',
+            'gameId',                        '12',
+            'achievementTypeData',           '{"category":1,"isAccretive":1,"isVisible":1,"levels":[{"level":1,"value":100,"glory":2},{"level":2,"value":250,"glory":5}]}')
+    ),
+    array(
+        'action' => 'addAchievementType/',
+        'params' => array(
+            'achievementTypeIdentifier',     'FIGHTER',
+            'gameId',                         '15',
+            'achievementTypeData',             '{"category":0,"isAccretive":0,"isVisible":1,"levels":[{"level":1,"value":10,"glory":3}]}')
+    ),
 );*/
 
 /*
@@ -260,33 +260,33 @@ $cases = array(
 
 function sendRequest($action, $params)
 {
-	$time = time();
-	$token = md5(uniqid($time));
-	$url = API_BASE_URL . $action . implode('/', $params);
+    $time = time();
+    $token = md5(uniqid($time));
+    $url = API_BASE_URL . $action . implode('/', $params);
 
-	print $url . PHP_EOL;
+    print $url . PHP_EOL;
 
-	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, $url);
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-		'X-Auth-Token: '.$token,
-		'X-Auth-Signature: '.md5($token.AUTH_SECRET.$time),
-		'X-Auth-Timestamp: '.$time
-	));
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+        'X-Auth-Token: '.$token,
+        'X-Auth-Signature: '.md5($token.AUTH_SECRET.$time),
+        'X-Auth-Timestamp: '.$time
+    ));
 
-	$result = curl_exec($ch);
+    $result = curl_exec($ch);
     curl_close($ch);
 
-	if ($result !== false) {
+    if ($result !== false) {
         print $result . PHP_EOL;
-	} else {
-		print 'ERROR: Cannot fetch data!' . PHP_EOL;
-	}
+    } else {
+        print 'ERROR: Cannot fetch data!' . PHP_EOL;
+    }
 
-	print '--------------------------------------------------------------------------------' . PHP_EOL;
+    print '--------------------------------------------------------------------------------' . PHP_EOL;
 }
 
 foreach ($cases as $case) {
-	sendRequest($case['action'], $case['params']);
+    sendRequest($case['action'], $case['params']);
 }

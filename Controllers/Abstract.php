@@ -17,7 +17,7 @@ abstract class Controllers_Abstract extends App_Base
         $this->env = $env;
         $this->output = array();
 
-		header_remove('X-Powered-By');
+        header_remove('X-Powered-By');
 
         header('Cache-control: no-cache');
         header('Expires: '.GMDate('D, d M Y H:i:s').' GMT');
@@ -43,11 +43,11 @@ abstract class Controllers_Abstract extends App_Base
             }
         }
 
-		if (!$this->_isAuth()) {
-			Gpf_Logger::warn('Unauthorized access - ENV:'.print_r($env, true).' HEADER:'.print_r(getallheaders(), true));
-			header('HTTP/1.1 403 Forbidden');
-			exit('"Access forbidden"');
-		}
+        if (!$this->_isAuth()) {
+            Gpf_Logger::warn('Unauthorized access - ENV:'.print_r($env, true).' HEADER:'.print_r(getallheaders(), true));
+            header('HTTP/1.1 403 Forbidden');
+            exit('"Access forbidden"');
+        }
     }
 
     /**
@@ -65,14 +65,14 @@ abstract class Controllers_Abstract extends App_Base
         }
     }
 
-	/**
-	 * @param $string
-	 * @return string
-	 */
+    /**
+     * @param $string
+     * @return string
+     */
     protected function _cleanString($string)
-	{
-		return Gpf_Core::trimAndCleanString($string);
-	}
+    {
+        return Gpf_Core::trimAndCleanString($string);
+    }
 
     /**
      * Default action
@@ -82,59 +82,59 @@ abstract class Controllers_Abstract extends App_Base
     {
     }
 
-	/**
-	 * Generates a signature from a given token
-	 * @param string $token
-	 * @param int $timestamp
-	 * @return string
-	 */
-	protected function _getSignature($token, $timestamp)
-	{
-		return md5($token.Gpf_Config::get('AUTH_SECRET').$timestamp);
-	}
+    /**
+     * Generates a signature from a given token
+     * @param string $token
+     * @param int $timestamp
+     * @return string
+     */
+    protected function _getSignature($token, $timestamp)
+    {
+        return md5($token.Gpf_Config::get('AUTH_SECRET').$timestamp);
+    }
 
-	/**
-	 * Formats an error output message
-	 * @param string $errorMessage
-	 * @param int $errorCode
-	 */
-	protected function _setError($errorMessage, $errorCode)
-	{
-		$this->output['errorMessage'] = $errorMessage;
-		$this->output['errorCode'] = $errorCode;
-	}
+    /**
+     * Formats an error output message
+     * @param string $errorMessage
+     * @param int $errorCode
+     */
+    protected function _setError($errorMessage, $errorCode)
+    {
+        $this->output['errorMessage'] = $errorMessage;
+        $this->output['errorCode'] = $errorCode;
+    }
 
-	/**
-	 * @return bool
-	 */
-	protected function _isAuth()
-	{
-		if ((int)Gpf_Config::get('AUTH_ENABLED') == 0) {
-			return true;
-		}
+    /**
+     * @return bool
+     */
+    protected function _isAuth()
+    {
+        if ((int)Gpf_Config::get('AUTH_ENABLED') == 0) {
+            return true;
+        }
 
-		$requestHeaders = getallheaders();
+        $requestHeaders = getallheaders();
 
-		$token = '';
-		if (isset($requestHeaders['X-Auth-Token'])) {
-			$token = Gpf_Core::trimAndCleanString($requestHeaders['X-Auth-Token']);
-		}
-		$signature = '';
-		if (isset($requestHeaders['X-Auth-Signature'])) {
-			$signature = Gpf_Core::trimAndCleanString($requestHeaders['X-Auth-Signature']);
-		}
-		$timestamp = 0;
-		if (isset($requestHeaders['X-Auth-Timestamp'])) {
-			$timestamp = (int)$requestHeaders['X-Auth-Timestamp'];
-		}
+        $token = '';
+        if (isset($requestHeaders['X-Auth-Token'])) {
+            $token = Gpf_Core::trimAndCleanString($requestHeaders['X-Auth-Token']);
+        }
+        $signature = '';
+        if (isset($requestHeaders['X-Auth-Signature'])) {
+            $signature = Gpf_Core::trimAndCleanString($requestHeaders['X-Auth-Signature']);
+        }
+        $timestamp = 0;
+        if (isset($requestHeaders['X-Auth-Timestamp'])) {
+            $timestamp = (int)$requestHeaders['X-Auth-Timestamp'];
+        }
 
-		if ($timestamp + (int)Gpf_Config::get('AUTH_TIME_OFFSET') < App_Base::now()) {
-			return false;
-		}
-		if ($this->_getSignature($token, $timestamp) != $signature) {
-			return false;
-		}
+        if ($timestamp + (int)Gpf_Config::get('AUTH_TIME_OFFSET') < App_Base::now()) {
+            return false;
+        }
+        if ($this->_getSignature($token, $timestamp) != $signature) {
+            return false;
+        }
 
-		return true;
-	}
+        return true;
+    }
 }

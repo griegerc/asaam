@@ -97,19 +97,19 @@ class Gpf_Core
         $env[self::PARAM_CONTROLLER] = (isset($env[self::PARAM_CONTROLLER]))?$env[self::PARAM_CONTROLLER]:'';
         $env[self::PARAM_ACTION]     = (isset($env[self::PARAM_ACTION]))?$env[self::PARAM_ACTION]:'index';
 
-		switch ($env[self::PARAM_CONTROLLER]) {
-			case '':
-				$env[self::PARAM_CONTROLLER] = self::getDefaultController();
-				break;
-			case 'api':
-				break;
-			default:
-				// redirect to the default page, except he clicked on a public area.
-				self::redirect(self::getDefaultController());
-				break;
-		}
+        switch ($env[self::PARAM_CONTROLLER]) {
+            case '':
+                $env[self::PARAM_CONTROLLER] = self::getDefaultController();
+                break;
+            case 'api':
+                break;
+            default:
+                // redirect to the default page, except he clicked on a public area.
+                self::redirect(self::getDefaultController());
+                break;
+        }
 
-		return $env;
+        return $env;
     }
 
     /**
@@ -154,25 +154,25 @@ class Gpf_Core
         exit(0);
     }
 
-	/**
-	 * @param string $string
-	 * @return mixed
-	 */
-	public static function removeBadUnicodeChars ($string) {
-		// Removes
-		// 0000 - 001F / 0080 - 0009F	-> Controls
-		// 00A0							-> No-Break Space
-		// 00AD							-> Soft Hyphen
-		// 034F							-> Combining Grapheme Joiner
-		return preg_replace('/[\x{0000}-\x{001F}\x{0080}-\x{009F}\x{00A0}\x{00AD}\x{034F}\x{200C}-\x{200F}\x{2060}-\x{206F}]/u', '', $string);
-	}
+    /**
+     * @param string $string
+     * @return mixed
+     */
+    public static function removeBadUnicodeChars ($string) {
+        // Removes
+        // 0000 - 001F / 0080 - 0009F    -> Controls
+        // 00A0                            -> No-Break Space
+        // 00AD                            -> Soft Hyphen
+        // 034F                            -> Combining Grapheme Joiner
+        return preg_replace('/[\x{0000}-\x{001F}\x{0080}-\x{009F}\x{00A0}\x{00AD}\x{034F}\x{200C}-\x{200F}\x{2060}-\x{206F}]/u', '', $string);
+    }
 
-	/**
-	 * @param string $string
-	 * @return mixed
-	 */
-	public static function trimAndCleanString($string) {
-		$string = self::removeBadUnicodeChars($string);
-		return preg_replace('/^[\pZ\pC]+|[\pZ\pC]+$/u','',$string);
-	}
+    /**
+     * @param string $string
+     * @return mixed
+     */
+    public static function trimAndCleanString($string) {
+        $string = self::removeBadUnicodeChars($string);
+        return preg_replace('/^[\pZ\pC]+|[\pZ\pC]+$/u','',$string);
+    }
 }
